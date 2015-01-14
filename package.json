@@ -1,0 +1,29 @@
+{
+  "name": "modella-bcrypt",
+  "version": "1.0.0",
+  "description": "Modella plugin to adds hashed field using bcrypt-nodejs and a compareField method to verify it. Safe for password encryption.",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aukan/modella-bcrypt.git"
+  },
+  "keywords": [
+    "modella",
+    "bcrypt",
+    "password",
+    "encryption",
+    "hash"
+  ],
+  "author": "Pablo Gonzalez",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aukan/modella-bcrypt/issues"
+  },
+  "homepage": "https://github.com/aukan/modella-bcrypt"
+}
