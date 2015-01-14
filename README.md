@@ -1,7 +1,7 @@
 modella-bcrypt
 ======
 
-Adds encrypted password field using bcrypt-nodejs and a verification method for that field.
+Adds hashed field using bcrypt-nodejs and a compareField method to verify it. Safe for password encryption.
 
 # Installation
 
@@ -11,20 +11,19 @@ npm install modella-bcrypt
 
 # Usage
 
-Add encrypted field `password`.
+Encrypt field `password`.
 
 ```js
 var modella = require('modella');
 var encrypter = require('modella-bcrypt');
 var User = modella('User');
 
-User.use(encrypter);
+User.use(encrypter({ fieldName: 'password' }));
 
 User.
   attr('_id').
   attr('email').
   attr('password');
-
 
 var user = new User({
   email: 'test@example.com',
@@ -32,16 +31,19 @@ var user = new User({
 });
 
 user.save(function () {
-  // user.password === [Password hashed]
+  // user.password === [Hashed password]
 });
 ```
 
 To verify the password of the user:
 
 ```js
-user.verifyPassword(pass, function (match) {
+user.compareField('password', pass, function (match) {
   // match === true if verification is correct
 });
+
+// or
+user.compareFieldSync(pass); // true or false
 ```
 
 # Options
