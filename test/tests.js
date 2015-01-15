@@ -11,7 +11,7 @@ describe('modella-bcrypt', function () {
         User = modella('User');
         User.use(memory());
 
-        User.attr('name');
+        User.attr('id');
         User.attr('password');
         User.use(encrypter({ fieldName: 'password' }));
 
@@ -22,14 +22,34 @@ describe('modella-bcrypt', function () {
     });
 
     it('should not save the field as it is', function (done) {
-        assert.notEqual(user.password, 'mysecret');
+        assert.notEqual(user.get('password'), 'mysecret');
         done();
     });
 
     it('should encrypt field with default rounds', function (done) {
         defaultRounds = bcrypt.getRounds(bcrypt.hashSync('astring'));
-        assert.equal(bcrypt.getRounds(user.password()), defaultRounds);
+        assert.equal(bcrypt.getRounds(user.get('password')), defaultRounds);
         done();
+    });
+
+    it('should not re-hash field if field was not changed', function (done) {
+        var pass = user.get('password');
+        user.save(function (err) {
+            assert.equal(pass, user.get('password'));
+            done();
+        });
+    });
+
+    it('should re-encrypt if field is changed', function (done) {
+        user2 = new User({ password: 'mysecret' });
+        user2.save(function (err) {
+            var pass = user2.get('password');
+            user2.set({'password': 'yoursecret'});
+            user2.save(function (err) {
+                assert.notEqual(pass, user2.get('password'));
+                done();
+            });
+        });
     });
 
     describe('compareField', function () {
@@ -76,7 +96,7 @@ describe('modella-bcrypt', function () {
         });
         describe('fieldName', function () {
             it('should not save the field as it is', function (done) {
-                assert.notEqual(animal.dna(), dna);
+                assert.notEqual(animal.get('dna'), dna);
                 done();
             });
             it('should return true if input matches', function (done) {
@@ -90,7 +110,7 @@ describe('modella-bcrypt', function () {
         });
         describe('rounds', function (done) {
             it('should hash with the specified ammount of rounds', function (done) {
-                assert.equal(bcrypt.getRounds(animal.dna()), rounds);
+                assert.equal(bcrypt.getRounds(animal.get('dna')), rounds);
                 done();
             })
         });
