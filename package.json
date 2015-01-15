@@ -25,5 +25,13 @@
   "bugs": {
     "url": "https://github.com/aukan/modella-bcrypt/issues"
   },
-  "homepage": "https://github.com/aukan/modella-bcrypt"
+  "homepage": "https://github.com/aukan/modella-bcrypt",
+  "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "modella": "^0.2.14"
+  },
+  "devDependencies": {
+    "assert": "^1.3.0",
+    "modella-memory": "^0.3.0"
+  }
 }
