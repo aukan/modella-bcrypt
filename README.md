@@ -1,7 +1,7 @@
 modella-bcrypt
 ======
 
-Adds hashed field using bcrypt-nodejs and a compareField method to verify it. Safe for password encryption.
+Adds hashed field using bcrypt-nodejs and a compareField method to verify it. Can be used for password encryption.
 
 # Installation
 
