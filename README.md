@@ -38,7 +38,7 @@ user.save(function () {
 To verify the password of the user:
 
 ```js
-user.compareField('password', pass, function (match) {
+user.compareField('password', pass, function (err, match) {
   // match === true if verification is correct
 });
 
